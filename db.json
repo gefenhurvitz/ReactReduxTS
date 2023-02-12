@@ -1,0 +1,8 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "sname": "json-server",
+      "age": "typicode"
+    }
+  ]}
