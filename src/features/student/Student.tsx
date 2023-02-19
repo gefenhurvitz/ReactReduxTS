@@ -1,26 +1,20 @@
-import React, { useState } from 'react';
+import React from "react";
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementAsync,
-  incrementIfOdd,
-  selectCount,
-} from './studentSlice';
-import styles from './Counter.module.css';
+import { useAppSelector } from "../../app/hooks";
+import { selectStudent } from "./studentSlice";
 
-export function Counter() {
-  const count = useAppSelector(selectCount);
-  const dispatch = useAppDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
-
-  const incrementValue = Number(incrementAmount) || 0;
+export function Student() {
+  const students = useAppSelector(selectStudent);
+  // const dispatch = useAppDispatch();
 
   return (
     <div>
-
+      {students.length}
+      {students.map((student, index) => (
+        <div key={index}>
+          name: {student.sname} <br/> age : {student.age}
+        </div>
+      ))}
     </div>
   );
 }

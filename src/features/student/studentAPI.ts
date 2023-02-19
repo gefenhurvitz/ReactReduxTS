@@ -1,6 +1,17 @@
+import axios from "axios";
+import { MY_SERVER } from "../../app/env";
+import Student from "../../models/Student";
+
 // A mock function to mimic making an async request for data
-export function fetchCount(amount = 1) {
-  return new Promise<{ data: number }>((resolve) =>
-    setTimeout(() => resolve({ data: amount }), 500)
+export function addStudent(stu: Student) {
+  return new Promise<{ data: Student}>((resolve) =>
+    axios.post(MY_SERVER, stu).then((res) => resolve({ data: res.data }))
+  );
+}
+
+
+export function getAllStudents() {
+  return new Promise<{ data: Student[]}>((resolve) =>
+    axios.get(MY_SERVER).then((res) => resolve({ data: res.data }))
   );
 }
