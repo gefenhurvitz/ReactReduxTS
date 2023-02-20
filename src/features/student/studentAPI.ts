@@ -11,7 +11,15 @@ export function addStudent(stu: Student) {
 
 
 export function getAllStudents() {
+  console.log('called get all studs from API')
   return new Promise<{ data: Student[]}>((resolve) =>
     axios.get(MY_SERVER).then((res) => resolve({ data: res.data }))
+  );
+}
+
+export function deleteStudent(id:number) {
+  console.log('called delete stud from API')
+  return new Promise<{ data: any}>((resolve) =>
+    axios.delete(MY_SERVER + "/" + id ).then((res) => resolve({ data: id }))
   );
 }

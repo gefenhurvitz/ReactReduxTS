@@ -7,8 +7,9 @@ import {Student} from './features/student/Student';
 function App() {
   return (
     <div className="App">
-      <Student/>
       <AddStudent/>
+      <Student/>
+      
     </div>
   );
 }

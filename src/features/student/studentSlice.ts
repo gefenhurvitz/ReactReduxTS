@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import Student from '../../models/Student';
-import { addStudent, getAllStudents } from './studentAPI';
+import { addStudent, deleteStudent, getAllStudents } from './studentAPI';
 
 export interface StudentState {
   value: number;
@@ -19,7 +19,6 @@ export const addStudentAsync = createAsyncThunk(
   'student/addStudent',
   async (newStudent: Student) => {
     const response = await addStudent(newStudent);
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
 );
@@ -27,10 +26,18 @@ export const addStudentAsync = createAsyncThunk(
 
 export const getAllStudentsAsync = createAsyncThunk(
   'student/getAllStudents',
-  async (studentsList: Student[]) => {
+  async () => {
     const response = await getAllStudents();
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
+  }
+);
+
+export const deleteStudentAsync = createAsyncThunk(
+  'student/deleteStudent',
+  async (id:number) => {
+    const response = await deleteStudent(id);
+    return response.data;
+    console.log(`delete student ${id}`)
   }
 );
 
@@ -70,6 +77,11 @@ export const studentSlice = createSlice({
         state.status = 'idle';
         console.log(action.payload)
         state.students = action.payload
+      })
+      .addCase(deleteStudentAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        console.log(action.payload)
+        state.students = state.students.filter(stu => stu.id !== action.payload)
       })
       
   },
